@@ -7,5 +7,9 @@
   "compatibility_date": "2025-09-23",
   "assets": {
     "directory": "./public"
-  }
+  },
+  // Serve this site at the apex. custom_domain creates the domain + the proxied
+  // DNS record (replacing the placeholder A record). The Worker routes for
+  // /adelaide-app/* and /chat/* are more specific, so those apps keep working.
+  "routes": [{ "pattern": "nicolescheid.com", "custom_domain": true }]
 }
