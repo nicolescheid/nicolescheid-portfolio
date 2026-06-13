@@ -1,0 +1,11 @@
+{
+  // Static site served by a Cloudflare Worker (Workers Static Assets).
+  // Cloudflare's Git integration runs `npx wrangler deploy`, which reads this
+  // file and serves everything in ./public as static assets — no server code.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nicolescheid-portfolio",
+  "compatibility_date": "2025-09-23",
+  "assets": {
+    "directory": "./public"
+  }
+}

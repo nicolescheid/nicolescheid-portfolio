@@ -1,12 +1,14 @@
 # nicolescheid.com
 
 Personal site for [nicolescheid.com](https://nicolescheid.com). A lightweight static
-placeholder for now, deployed on **Cloudflare Pages**.
+placeholder for now, served by a **Cloudflare Worker** (Workers Static Assets),
+auto-deployed from this repo on every push.
 
 ## Edit & deploy
 
-It's a single `index.html` — no build step. Edit and push; Cloudflare Pages
-rebuilds and deploys automatically once the repo is connected.
+The site is `public/index.html` — no build step. Edit it and `git push`;
+Cloudflare runs `npx wrangler deploy` (per `wrangler.jsonc`) and serves
+everything in `public/`.
 
-- Build command: _(none)_
-- Build output directory: `/`
+- Site files: `public/`
+- Config: `wrangler.jsonc`
