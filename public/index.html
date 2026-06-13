@@ -4,121 +4,112 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Nicole Scheid</title>
-    <meta name="description" content="Nicole Scheid — Product Manager. Portfolio coming soon." />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>" />
+    <meta name="description" content="Nicole Scheid — senior product manager, AI-augmented practice. Chat with an AI version of me." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.92em' font-size='86' fill='%230e7c6f'>✳</text></svg>" />
     <style>
       :root {
-        --bg: #f5f1ea;
-        --ink: #1f1d1a;
-        --muted: #6b6258;
-        --accent: #b4542e;
+        --bg: #f5f3ee;
+        --ink: #1c1f1e;
+        --muted: #6a716e;
+        --accent: #0e7c6f;
+        --accent-dark: #0a5f55;
         --card: #fffdf9;
-        --line: #e7ddcf;
+        --line: #e6e1d6;
       }
       * { box-sizing: border-box; }
-      html, body { margin: 0; height: 100%; }
+      html, body { margin: 0; min-height: 100%; }
       body {
-        background: radial-gradient(1200px 600px at 50% -10%, #fbf7f0, var(--bg));
+        background: radial-gradient(1100px 520px at 50% -8%, #fbf9f4, var(--bg));
         color: var(--ink);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         display: grid;
         place-items: center;
         padding: 32px;
-        min-height: 100%;
       }
-      .wrap { max-width: 600px; width: 100%; text-align: center; }
-      .eyebrow {
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        font-size: 12px;
-        color: var(--muted);
-        margin-bottom: 18px;
-      }
+      .wrap { max-width: 620px; width: 100%; text-align: center; }
+      .star { font-size: 30px; color: var(--accent); line-height: 1; margin-bottom: 18px; }
       h1 {
         font-family: Georgia, "Times New Roman", serif;
         font-weight: 600;
-        font-size: clamp(40px, 9vw, 72px);
-        line-height: 1.02;
-        margin: 0 0 6px;
+        font-size: clamp(40px, 9vw, 68px);
         letter-spacing: -0.5px;
+        line-height: 1.02;
+        margin: 0 0 8px;
       }
-      .role {
-        font-size: 17px;
-        color: var(--muted);
-        margin: 0 0 30px;
-      }
-      .role em { color: var(--accent); font-style: normal; }
-      .rule {
-        width: 48px;
-        height: 3px;
-        background: var(--accent);
-        border-radius: 3px;
+      .role { font-size: 16px; color: var(--muted); margin: 0 0 26px; letter-spacing: 0.2px; }
+      .role b { color: var(--accent); font-weight: 600; }
+      .intro {
+        font-size: 17.5px;
+        line-height: 1.6;
+        color: #34403d;
         margin: 0 auto 30px;
+        max-width: 540px;
       }
-      .card {
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 26px 24px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 14px 40px rgba(80, 60, 40, 0.06);
-      }
-      .card p { margin: 0 0 18px; color: var(--muted); font-size: 15px; line-height: 1.55; }
+      .intro em { font-style: italic; color: var(--ink); }
       .cta {
         display: inline-flex;
         align-items: center;
-        gap: 9px;
+        gap: 10px;
         background: var(--accent);
         color: #fff;
         text-decoration: none;
         font-weight: 600;
-        font-size: 15px;
-        padding: 13px 22px;
+        font-size: 16px;
+        padding: 15px 26px;
         border-radius: 999px;
-        transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-        box-shadow: 0 6px 18px rgba(180, 84, 46, 0.25);
+        box-shadow: 0 8px 22px rgba(14, 124, 111, 0.28);
+        transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
       }
-      .cta:hover { transform: translateY(-1px); background: #9e4827; box-shadow: 0 9px 24px rgba(180, 84, 46, 0.32); }
+      .cta:hover { transform: translateY(-1px); background: var(--accent-dark); box-shadow: 0 11px 28px rgba(14, 124, 111, 0.34); }
       .cta .arrow { transition: transform 0.15s ease; }
       .cta:hover .arrow { transform: translateX(3px); }
-      .tag {
-        display: inline-block;
-        margin-top: 16px;
-        font-size: 12px;
-        color: var(--muted);
+      .cta-note { font-size: 13px; color: var(--muted); margin: 14px 0 0; }
+      .links {
+        margin-top: 40px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 22px;
+        justify-content: center;
+        font-size: 14px;
       }
-      footer {
-        margin-top: 34px;
-        font-size: 12.5px;
-        color: var(--muted);
-      }
-      footer a { color: var(--accent); text-decoration: none; }
-      footer a:hover { text-decoration: underline; }
+      .links a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
+      .links a:hover { color: var(--accent); }
+      footer { margin-top: 26px; font-size: 12.5px; color: var(--muted); }
     </style>
   </head>
   <body>
     <main class="wrap">
-      <div class="eyebrow">Portfolio coming soon</div>
+      <div class="star">✳</div>
       <h1>Nicole&nbsp;Scheid</h1>
-      <!-- EDIT ME: your title / one-liner -->
-      <p class="role">Product Manager · <em>Conversational AI &amp; digital products</em></p>
-      <div class="rule"></div>
+      <!-- EDIT ME: your role line -->
+      <p class="role">Senior Product Manager · <b>AI-augmented practice</b> · Auckland</p>
 
-      <div class="card">
-        <p>I'm a product manager working in conversational AI and customer-facing digital
-          products. My full portfolio is on its way — in the meantime, I'd love to connect.</p>
-        <a class="cta" href="mailto:hello@nicolescheid.com">
-          Get in touch
-          <span class="arrow">→</span>
-        </a>
-      </div>
+      <!-- EDIT ME: your intro, in your voice -->
+      <p class="intro">
+        It's interesting — I work for an airline, yet what I actually do sits well outside the usual
+        shape of that. I'm a product manager who <em>ships</em> with AI, drawn to the synergy between
+        disciplines — the places where things become <em>bigger than the sum of their parts</em>.
+        Asterisk-shaped, not T-shaped. Twenty minutes into the future, and running to keep up.
+      </p>
 
-      <!-- EDIT ME: add your real links -->
-      <footer>
-        &copy; 2026 Nicole Scheid &nbsp;·&nbsp;
-        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp;
-        <a href="mailto:hello@nicolescheid.com">Email</a>
-      </footer>
+      <a class="cta" href="/chat">
+        Chat with an AI version of me
+        <span class="arrow">→</span>
+      </a>
+      <p class="cta-note">It answers about my work in my own words — and my own voice. 🎧</p>
+
+      <!-- EDIT ME: your real links -->
+      <nav class="links">
+        <a href="https://www.linkedin.com/in/nicoles" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dyadicmind.com" target="_blank" rel="noopener">Dyadic Mind</a>
+        <a href="https://dyadicmind.substack.com" target="_blank" rel="noopener">Substack</a>
+        <a href="mailto:nicole.scheid@gmail.com">Email</a>
+      </nav>
+
+      <footer>&copy; 2026 Nicole Scheid</footer>
     </main>
   </body>
 </html>
