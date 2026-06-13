@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nicole Scheid</title>
+    <meta name="description" content="Nicole Scheid — Product Manager. Portfolio coming soon." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>" />
+    <style>
+      :root {
+        --bg: #f5f1ea;
+        --ink: #1f1d1a;
+        --muted: #6b6258;
+        --accent: #b4542e;
+        --card: #fffdf9;
+        --line: #e7ddcf;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; }
+      body {
+        background: radial-gradient(1200px 600px at 50% -10%, #fbf7f0, var(--bg));
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        display: grid;
+        place-items: center;
+        padding: 32px;
+        min-height: 100%;
+      }
+      .wrap { max-width: 600px; width: 100%; text-align: center; }
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 18px;
+      }
+      h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 600;
+        font-size: clamp(40px, 9vw, 72px);
+        line-height: 1.02;
+        margin: 0 0 6px;
+        letter-spacing: -0.5px;
+      }
+      .role {
+        font-size: 17px;
+        color: var(--muted);
+        margin: 0 0 30px;
+      }
+      .role em { color: var(--accent); font-style: normal; }
+      .rule {
+        width: 48px;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 3px;
+        margin: 0 auto 30px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 26px 24px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 14px 40px rgba(80, 60, 40, 0.06);
+      }
+      .card p { margin: 0 0 18px; color: var(--muted); font-size: 15px; line-height: 1.55; }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        padding: 13px 22px;
+        border-radius: 999px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+        box-shadow: 0 6px 18px rgba(180, 84, 46, 0.25);
+      }
+      .cta:hover { transform: translateY(-1px); background: #9e4827; box-shadow: 0 9px 24px rgba(180, 84, 46, 0.32); }
+      .cta .arrow { transition: transform 0.15s ease; }
+      .cta:hover .arrow { transform: translateX(3px); }
+      .tag {
+        display: inline-block;
+        margin-top: 16px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      footer {
+        margin-top: 34px;
+        font-size: 12.5px;
+        color: var(--muted);
+      }
+      footer a { color: var(--accent); text-decoration: none; }
+      footer a:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="eyebrow">Portfolio coming soon</div>
+      <h1>Nicole&nbsp;Scheid</h1>
+      <!-- EDIT ME: your title / one-liner -->
+      <p class="role">Product Manager · <em>Conversational AI &amp; digital products</em></p>
+      <div class="rule"></div>
+
+      <div class="card">
+        <p>I'm a product manager working in conversational AI and customer-facing digital
+          products. My full portfolio is on its way — in the meantime, I'd love to connect.</p>
+        <a class="cta" href="mailto:hello@nicolescheid.com">
+          Get in touch
+          <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <!-- EDIT ME: add your real links -->
+      <footer>
+        &copy; 2026 Nicole Scheid &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="mailto:hello@nicolescheid.com">Email</a>
+      </footer>
+    </main>
+  </body>
+</html>
