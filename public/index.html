@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Google Analytics 4 — REPLACE G-XXXXXXXXXX with your GA4 Measurement ID -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- Google Analytics 4 — REPLACE G-E9WKBQ6M9B with your GA4 Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E9WKBQ6M9B"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       gtag("js", new Date());
-      gtag("config", "G-XXXXXXXXXX");
+      gtag("config", "G-E9WKBQ6M9B");
     </script>
 
     <title>Nicole Scheid</title>
@@ -104,6 +104,44 @@
       .links a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
       .links a:hover { color: var(--accent); }
       footer { margin-top: 26px; font-size: 12.5px; color: var(--muted); }
+
+      /* contact modal */
+      .modal-backdrop {
+        position: fixed; inset: 0; z-index: 50;
+        background: rgba(28, 31, 30, 0.55); backdrop-filter: blur(3px);
+        display: none; place-items: center; padding: 24px;
+      }
+      .modal-backdrop.open { display: grid; }
+      .modal {
+        position: relative; width: 100%; max-width: 460px; text-align: left;
+        background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+        padding: 28px 26px 24px; box-shadow: 0 24px 60px rgba(28, 31, 30, 0.28);
+      }
+      .modal h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; font-size: 25px; margin: 0 0 4px; }
+      .modal .sub { margin: 0 0 18px; font-size: 14px; color: var(--muted); line-height: 1.5; }
+      .modal .field { margin-bottom: 14px; }
+      .modal label { display: block; font-size: 13px; font-weight: 600; color: #34403d; margin: 0 0 5px; }
+      .modal input, .modal textarea {
+        width: 100%; padding: 11px 13px; font-size: 15px; font-family: inherit; color: var(--ink);
+        background: #fff; border: 1px solid var(--line); border-radius: 10px; resize: vertical;
+      }
+      .modal input:focus, .modal textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+      .modal .submit {
+        width: 100%; border: none; background: var(--accent); color: #fff; cursor: pointer;
+        font-weight: 600; font-size: 15px; padding: 13px; border-radius: 999px; transition: background 0.15s;
+      }
+      .modal .submit:hover { background: var(--accent-dark); }
+      .modal .submit:disabled { opacity: 0.6; cursor: default; }
+      .modal .close {
+        position: absolute; top: 10px; right: 14px; background: none; border: none;
+        font-size: 24px; line-height: 1; color: var(--muted); cursor: pointer;
+      }
+      .modal .close:hover { color: var(--ink); }
+      .modal .status { font-size: 14px; margin: 12px 0 0; min-height: 18px; }
+      .modal .status.ok { color: var(--accent); }
+      .modal .status.err { color: #b3261e; }
+      .modal .success { text-align: center; padding: 14px 0 6px; }
+      .modal .success .big { font-size: 40px; color: var(--accent); line-height: 1; margin-bottom: 6px; }
     </style>
   </head>
   <body>
@@ -133,10 +171,103 @@
         <a href="https://www.linkedin.com/in/nicoles" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://dyadicmind.com" target="_blank" rel="noopener">Dyadic Mind</a>
         <a href="https://dyadicmind.substack.com" target="_blank" rel="noopener">Substack</a>
-        <a href="mailto:nicole.scheid@gmail.com">Email</a>
+        <a href="#contact" id="contact-open">Contact</a>
       </nav>
 
       <footer>&copy; 2026 Nicole Scheid</footer>
     </main>
+
+    <!-- contact modal -->
+    <div class="modal-backdrop" id="contact-modal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+        <button class="close" type="button" id="contact-close" aria-label="Close">&times;</button>
+        <div id="contact-body">
+          <h2 id="contact-title">Get in touch</h2>
+          <p class="sub">Drop me a note and it lands straight in my inbox. I read everything.</p>
+          <form id="contact-form">
+            <!-- REPLACE with your free Web3Forms access key (web3forms.com) — this is NOT your email -->
+            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+            <input type="hidden" name="subject" value="New message from nicolescheid.com" />
+            <input type="hidden" name="from_name" value="nicolescheid.com" />
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+            <div class="field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" name="name" type="text" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" required autocomplete="email" />
+            </div>
+            <div class="field">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" rows="4" required></textarea>
+            </div>
+            <button class="submit" type="submit" id="cf-submit">Send message</button>
+            <p class="status" id="cf-status" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var modal = document.getElementById("contact-modal");
+        var openEl = document.getElementById("contact-open");
+        var closeEl = document.getElementById("contact-close");
+        var form = document.getElementById("contact-form");
+        var statusEl = document.getElementById("cf-status");
+        var submitBtn = document.getElementById("cf-submit");
+
+        function open(e) {
+          if (e) e.preventDefault();
+          modal.classList.add("open");
+          modal.setAttribute("aria-hidden", "false");
+          var n = document.getElementById("cf-name");
+          if (n) n.focus();
+        }
+        function close() {
+          modal.classList.remove("open");
+          modal.setAttribute("aria-hidden", "true");
+        }
+
+        if (openEl) openEl.addEventListener("click", open);
+        if (closeEl) closeEl.addEventListener("click", close);
+        modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
+        document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+
+        if (form) form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var key = form.querySelector('[name="access_key"]').value;
+          if (key.indexOf("YOUR_") === 0) {
+            statusEl.className = "status err";
+            statusEl.innerHTML = 'The form is being set up — for now, please reach me on ' +
+              '<a href="https://www.linkedin.com/in/nicoles" target="_blank" rel="noopener" style="color:var(--accent)">LinkedIn</a>.';
+            return;
+          }
+          statusEl.className = "status ok";
+          statusEl.textContent = "Sending…";
+          submitBtn.disabled = true;
+          fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) })
+            .then(function (r) { return r.json(); })
+            .then(function (j) {
+              if (j.success) {
+                if (window.gtag) gtag("event", "contact_submit", { event_category: "engagement" });
+                document.getElementById("contact-body").innerHTML =
+                  '<div class="success"><div class="big">✳</div><h2>Thank you</h2>' +
+                  '<p class="sub">Your message is on its way. I\'ll be in touch soon.</p></div>';
+              } else {
+                statusEl.className = "status err";
+                statusEl.textContent = j.message || "Something went wrong. Please try again.";
+                submitBtn.disabled = false;
+              }
+            })
+            .catch(function () {
+              statusEl.className = "status err";
+              statusEl.textContent = "Network error. Please try again.";
+              submitBtn.disabled = false;
+            });
+        });
+      })();
+    </script>
   </body>
 </html>
