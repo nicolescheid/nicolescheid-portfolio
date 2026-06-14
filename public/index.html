@@ -185,10 +185,7 @@
           <h2 id="contact-title">Get in touch</h2>
           <p class="sub">Drop me a note and it lands straight in my inbox. I read everything.</p>
           <form id="contact-form">
-            <!-- REPLACE with your free Web3Forms access key (web3forms.com) — this is NOT your email -->
-            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
-            <input type="hidden" name="subject" value="New message from nicolescheid.com" />
-            <input type="hidden" name="from_name" value="nicolescheid.com" />
+            <!-- Honeypot: real users leave this empty; the Worker rejects anything that fills it. -->
             <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
             <div class="field">
               <label for="cf-name">Name</label>
@@ -237,17 +234,10 @@
 
         if (form) form.addEventListener("submit", function (e) {
           e.preventDefault();
-          var key = form.querySelector('[name="access_key"]').value;
-          if (key.indexOf("YOUR_") === 0) {
-            statusEl.className = "status err";
-            statusEl.innerHTML = 'The form is being set up — for now, please reach me on ' +
-              '<a href="https://www.linkedin.com/in/nicoles" target="_blank" rel="noopener" style="color:var(--accent)">LinkedIn</a>.';
-            return;
-          }
           statusEl.className = "status ok";
           statusEl.textContent = "Sending…";
           submitBtn.disabled = true;
-          fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) })
+          fetch("/api/contact", { method: "POST", body: new FormData(form) })
             .then(function (r) { return r.json(); })
             .then(function (j) {
               if (j.success) {
