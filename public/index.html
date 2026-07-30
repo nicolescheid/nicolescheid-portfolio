@@ -232,6 +232,13 @@
         modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
         document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
 
+        // Open straight from a #contact link so other sites can point at the
+        // form itself, not just the page it lives on. Without this the hash
+        // arrives but the modal stays shut and the visitor has to find the nav.
+        function openIfHashed() { if (location.hash === "#contact") open(); }
+        openIfHashed();
+        window.addEventListener("hashchange", openIfHashed);
+
         if (form) form.addEventListener("submit", function (e) {
           e.preventDefault();
           statusEl.className = "status ok";
