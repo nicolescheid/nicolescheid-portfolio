@@ -1,0 +1,4 @@
+# Homepage hands off to the AI CV, which is the canonical version of the site.
+# 302 (not 301) so a standalone homepage can come back later without fighting browser caches.
+/ /ai-cv 302
+/index.html /ai-cv 302

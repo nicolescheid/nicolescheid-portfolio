@@ -12,3 +12,9 @@ everything in `public/`.
 
 - Site files: `public/`
 - Config: `wrangler.jsonc`
+
+## Homepage redirect
+
+`public/_redirects` sends `/` to `/ai-cv` (302), so the AI CV is what visitors get at
+nicolescheid.com. `index.html` stays in the repo as the fallback landing page: delete the
+rules in `_redirects` to bring it back.
