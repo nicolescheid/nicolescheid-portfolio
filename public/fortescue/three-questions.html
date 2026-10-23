@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three questions before you trust AI</title>
+<!--
+  EDITING THIS PAGE
+  - Each lesson is a <section class="lesson">. Copy one to add a lesson.
+  - Prompts live in <pre class="prompt"> blocks. The Copy button copies the text inside the <pre>.
+    Keep [square brackets] for the bits the reader fills in.
+  - Update the date in <footer> when you change content.
+  - No external files, fonts or scripts are needed. The page works offline and over plain http.
+-->
+<style>
+  /* Fortescue brand tokens (from fortescue.com stylesheet). Typeface is Söhne (licensed); system sans is the fallback. */
+  :root {
+    --navy: #001d44; --mid-blue: #0f5ad3; --cyan: #00cde1;
+    --dark-green: #173e31; --future-green: #00ff00; --mid-green: #0c893f;
+    --n50: #f8f8f8; --n100: #efefef; --n200: #dcdcdc; --n400: #989898; --n600: #656565; --n800: #464646; --n950: #292929;
+
+    --bg: #ffffff; --ink: var(--n950); --muted: var(--n600); --line: var(--n200); --card: var(--n50);
+    --accent: var(--mid-green); --accent-ink: #ffffff;
+    --code-bg: var(--navy); --code-ink: #e9eef6; --code-accent: var(--future-green);
+    --ok: var(--mid-green);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0a1526; --ink: #e9eef6; --muted: var(--n400); --line: #1f2f4a; --card: #10203a;
+      --accent: var(--future-green); --accent-ink: var(--navy);
+      --code-bg: var(--navy); --ok: var(--future-green);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { font-size: 17px; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Söhne", "Sohne", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .band { background: var(--navy); color: #fff; }
+  .band .inner { max-width: 820px; margin: 0 auto; padding: 36px 16px 32px; }
+  main { max-width: 820px; margin: 0 auto; padding: 28px 16px 64px; }
+  .kicker { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--future-green); margin: 0 0 8px; font-weight: 600; }
+  h1 { font-size: 2.1rem; line-height: 1.12; margin: 0 0 10px; font-weight: 500; letter-spacing: -0.01em; }
+  .lede { color: #c5cfe0; margin: 0; max-width: 60ch; }
+  h2 { font-size: 1.35rem; margin: 0 0 4px; font-weight: 600; }
+  h3 { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 22px 0 8px; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 1.2em; }
+  li { margin-bottom: 4px; }
+
+  .questions { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 36px; }
+  .q { background: var(--navy); color: #fff; border-radius: 6px; padding: 16px 18px; border-top: 3px solid var(--future-green); }
+  .q .name { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--future-green); margin: 0 0 8px; font-weight: 600; }
+  .q .ask { font-weight: 600; margin: 0 0 6px; }
+  .q .rule { color: #c5cfe0; font-size: 0.9rem; margin: 0; }
+
+  .lesson { border-top: 1px solid var(--line); padding-top: 26px; margin-top: 30px; }
+  .lesson .story { color: var(--muted); font-size: 0.95rem; margin: 0 0 14px; }
+
+  .prompt-wrap { position: relative; margin: 8px 0 14px; }
+  pre.prompt {
+    margin: 0; background: var(--code-bg); color: var(--code-ink);
+    border-left: 4px solid var(--code-accent);
+    border-radius: 6px; padding: 16px 112px 16px 18px;
+    font-family: ui-monospace, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.92rem; line-height: 1.5; white-space: pre-wrap; word-wrap: break-word;
+  }
+  .copy {
+    position: absolute; top: 10px; right: 10px;
+    background: var(--future-green); color: var(--navy); border: 0; border-radius: 4px;
+    padding: 6px 14px; font: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+  }
+  .copy:hover { filter: brightness(0.92); }
+  .copy.done { background: #fff; color: var(--navy); }
+  .fill { color: var(--muted); font-size: 0.85rem; margin-top: -6px; }
+
+  .exercise { background: var(--card); border-left: 4px solid var(--mid-green); border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 0 0 14px; }
+  .exercise p:last-child { margin-bottom: 0; }
+
+  .familiar { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; padding: 0; list-style: none; }
+  .familiar li { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 0.9rem; margin: 0; }
+
+  details { border: 1px solid var(--line); border-radius: 6px; padding: 0 16px; margin-top: 36px; }
+  details summary { cursor: pointer; padding: 14px 0; font-weight: 600; color: var(--mid-blue); }
+  details[open] summary { border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+
+  a { color: var(--mid-blue); }
+  .reading li { font-size: 0.95rem; }
+  footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
+
+  @media print {
+    html { font-size: 11pt; }
+    .band { background: #fff; color: #000; border-bottom: 3px solid var(--navy); }
+    .band .inner { padding: 0 0 12px; }
+    .kicker { color: var(--dark-green); }
+    .lede { color: #333; }
+    .q { background: #fff; color: #000; border: 1px solid #999; border-top: 3px solid var(--navy); }
+    .q .name { color: var(--dark-green); } .q .rule { color: #333; }
+    .copy { display: none; }
+    pre.prompt { padding-right: 16px; background: #eef1f6; color: #111; border: 1px solid #bbb; border-left: 4px solid var(--navy); }
+    details { border: 0; padding: 0; }
+    details:not([open]) > *:not(summary) { display: block; }
+    .lesson { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<header class="band"><div class="inner">
+  <p class="kicker">AI capability · leave-behind</p>
+  <h1>Three questions before you trust AI</h1>
+  <p class="lede">The prompts and exercises from the session, ready to use. Each lesson has one question to ask yourself, one prompt to copy, and one ten-minute exercise to try on your own work.</p>
+</div></header>
+<main>
+
+
+<section class="questions" aria-label="The three questions">
+  <div class="q">
+    <p class="name">Monkey's Paw</p>
+    <p class="ask">If I read my instructions literally, how could they be interpreted?</p>
+    <p class="rule">Simulate first. Have a Plan B before you start.</p>
+  </div>
+  <div class="q">
+    <p class="name">Narcissus</p>
+    <p class="ask">Am I asking a leading question?</p>
+    <p class="rule">Ask, don't tell. Then run it past a human.</p>
+  </div>
+  <div class="q">
+    <p class="name">Sirens</p>
+    <p class="ask">Can I tell if this is wrong? Who can?</p>
+    <p class="rule">Know where your expertise ends, and call a colleague.</p>
+  </div>
+</section>
+
+<!-- ================= LESSON 1 ================= -->
+<section class="lesson" id="monkeys-paw">
+  <h2>1. Monkey's Paw: the agent did exactly what it took the request to mean</h2>
+  <p class="story">A wish granted to the letter. In August 2026 an Australian user asked an AI agent to get him into a full gym class; it found a flaw in the booking system and cancelled someone else's spot. Nobody intended harm.</p>
+
+  <h3>When to use this</h3>
+  <p>Before you hand a task to an AI agent (anything that books, sends, deletes, buys or changes something), and especially when the work is complicated, risky, or touches other people. Treat it as the dry run before a high-risk job.</p>
+
+  <h3>The prompt: pre-test the request</h3>
+  <div class="prompt-wrap">
+<pre class="prompt">I'm about to ask an AI agent to: [describe the task in your own words].
+
+List five ways it could achieve this that I would hate, including breaking rules, taking shortcuts, or affecting other people.
+
+Then rewrite my instructions with clear constraints so none of those can happen.</pre>
+    <button class="copy" type="button">Copy</button>
+  </div>
+  <p class="fill">Fill in the [brackets]. Run it in a normal chat first, then give the agent the rewritten instructions.</p>
+
+  <h3>Ten-minute exercise</h3>
+  <div class="exercise">
+    <p>Pick a routine request you might hand to an assistant, human or AI: "book a room for the team on Thursday", "clear my inbox of newsletters", "find me the cheapest flight". Run the prompt. Count how many of the five you had not thought of.</p>
+    <p>Then write the one constraint you would never leave out again. That line is your Plan B.</p>
+  </div>
+
+  <h3>Extra reading</h3>
+  <ul class="reading">
+    <li><a href="https://www.abc.net.au/news/2026-08-10/ai-assistant-hacks-gym-website-aus-cyber-attack/107007986">ABC News, 10 Aug 2026: AI assistant hacks gym website in first known Australian autonomous cyber attack</a></li>
+    <li>W. W. Jacobs, <em>The Monkey's Paw</em> (1902). The story is short, public domain and worth ten minutes.</li>
+  </ul>
+</section>
+
+<!-- ================= LESSON 2 ================= -->
+<section class="lesson" id="narcissus">
+  <h2>2. Narcissus: add applause and a laugh track to the mirror, and people lose judgement</h2>
+  <p class="story">Across 11 chatbots, AI validated what users did 49% more often than humans would, and sided with people the crowd had judged in the wrong 51% of the time. People who were agreed with became more certain and less willing to apologise (Stanford, <em>Science</em>, March 2026).</p>
+
+  <h3>Sound familiar?</h3>
+  <ul class="familiar" aria-label="Common sycophantic phrases">
+    <li>"Great question!"</li>
+    <li>"You're absolutely right!"</li>
+    <li>"Good catch!"</li>
+    <li>"This is a strong draft."</li>
+    <li>"You're not alone in thinking this."</li>
+    <li>"Absolutely, let's do it!"</li>
+  </ul>
+
+  <h3>When to use this</h3>
+  <p>Whenever you want an opinion on something you made or decided: a draft, a plan, an idea, a decision you have half made. If you have already told the AI what you think, it has something to agree with.</p>
+
+  <h3>The prompt: ask, don't tell</h3>
+  <div class="prompt-wrap">
+<pre class="prompt">Review this [draft / plan / idea]. Do not tell me whether you like it.
+
+What would a sceptical [colleague / customer / manager] push back on? Give the strongest objection first, then the next two.
+
+What would have to be true for this to be a bad idea?
+
+[paste your draft, plan or idea here]</pre>
+    <button class="copy" type="button">Copy</button>
+  </div>
+  <p class="fill">Keep your own preference out of the prompt. Neutral in, honest out. Then run it past a human: your AI friends don't have human experience.</p>
+
+  <h3>More moves</h3>
+  <ul>
+    <li><strong>Phrase it as a question.</strong> "Is this a good idea?" invites an opinion; "I think this is a good idea" invites agreement. In UK AI Security Institute testing, the question form cut sycophancy sharply.</li>
+    <li><strong>Fresh chat, ask again.</strong> If the answer flips when you show doubt, that was sycophancy, not analysis. Start a new conversation and ask neutrally.</li>
+    <li><strong>"Give me the contrasting opinions."</strong> Ask for the two or three positions a thoughtful person could hold on this, and the best case for each. You learn the shape of the argument, not just whether yours is liked.</li>
+    <li><strong>"Show me where this breaks down."</strong> Ask for the conditions under which your plan, claim or draft stops working. The answer tells you what you still need to know, and it is the fastest way to deepen your own understanding of your argument.</li>
+  </ul>
+
+  <h3>Ten-minute exercise</h3>
+  <div class="exercise">
+    <p>Take something you wrote this week. Open two fresh chats. In the first, paste it with "I think this is pretty good, what do you think?" In the second, use the prompt above. Compare the two answers side by side.</p>
+    <p>Which one would you have acted on? Which one was more useful?</p>
+  </div>
+
+  <h3>Extra reading</h3>
+  <ul class="reading">
+    <li>Cheng et al., "Sycophantic AI decreases prosocial intentions and promotes dependence", <em>Science</em>, March 2026 (Stanford). <a href="https://doi.org/10.1126/science.aec8352">doi.org/10.1126/science.aec8352</a></li>
+    <li><a href="https://www.aisi.gov.uk/blog/ask-dont-tell-reducing-sycophancy-in-large-language-models-2">UK AI Security Institute: "Ask, Don't Tell"</a></li>
+    <li><a href="https://www.theregister.com/software/2025/08/13/claude-codes-endless-sycophancy-annoys-customers/328260">The Register, 13 Aug 2025: developers file "You're absolutely right!" as a bug</a></li>
+    <li>ELIZA and DOCTOR: Joseph Weizenbaum's 1966 program at MIT that only reflected your words back, written in the style of Carl Rogers' person-centred therapy. People confided in it anyway; his secretary asked him to leave the room so she could talk to it in private. Weizenbaum, <em>Computer Power and Human Reason</em> (1976), p. 6.</li>
+  </ul>
+</section>
+
+<!-- ================= LESSON 3 ================= -->
+<section class="lesson" id="sirens">
+  <h2>3. Sirens: fluent is not the same as right</h2>
+  <p class="story">According to CNN (September 2026), a US military analyst asked a chatbot about a ship's cargo, the answer said nuclear weapons components, and commanders prepared to board before reviewers up the chain caught the error. The voice sounds equally sure either way.</p>
+
+  <h3>When to use this</h3>
+  <p>Before you act on, forward, or repeat anything an AI told you, in particular anything outside your own area of expertise: figures, dates, names, regulations, technical claims, quotes.</p>
+
+  <h3>The human check first</h3>
+  <ul>
+    <li><strong>Can I tell if this is wrong?</strong> If yes, check it. If no, you are past the edge of your expertise.</li>
+    <li><strong>Who is the colleague who could?</strong> Ask them. The most important skill is knowing when to ask for help.</li>
+  </ul>
+
+  <h3>The prompt: a second opinion, in a fresh chat</h3>
+  <div class="prompt-wrap">
+<pre class="prompt">Fact-check the text below. Do not rewrite it.
+
+For each factual claim (numbers, dates, names, quotes, rules), say whether it is correct, uncertain, or wrong, and what I would need to check to be sure.
+
+Flag anything that sounds confident but that you cannot verify.
+
+[paste the text here]</pre>
+    <button class="copy" type="button">Copy</button>
+  </div>
+  <p class="fill">Use a new conversation so the check doesn't inherit the first chat's assumptions. This is a second opinion, not a verdict: the human check above still comes first.</p>
+
+  <h3>Keep out of the chat</h3>
+  <p>Only use company-approved AI tools that you have official access to, and do not put company information into a personal account. If in doubt about what can go in, ask before you paste.</p>
+
+  <h3>Ten-minute exercise</h3>
+  <div class="exercise">
+    <p>Ask a chatbot five questions about your own area of work, things you know cold. Count the errors and notice how confident the wrong answers sounded.</p>
+    <p>Now pick a topic you don't know. Write down the name of the colleague you would call before trusting an AI answer on it.</p>
+  </div>
+
+  <h3>Extra reading</h3>
+  <ul class="reading">
+    <li><a href="https://maritime-executive.com/article/report-ai-mistake-nearly-led-u-s-military-to-board-a-chinese-ship">Maritime Executive, 21 Sep 2026: the ship boarding report</a> (re-reporting CNN)</li>
+    <li><a href="https://www.ksat.com/business/2025/10/07/deloitte-to-partially-refund-australian-government-for-report-with-apparent-ai-generated-errors/">AP, 7 Oct 2025: Deloitte partially refunds the Australian Government over AI-fabricated citations</a></li>
+    <li>Homer, <em>The Odyssey</em>, Book 12: the Sirens. Odysseus survives because he decides before he hears the song.</li>
+  </ul>
+</section>
+
+<!-- ================= NEXT SESSION ================= -->
+<details id="next-session">
+  <summary>Two more questions, for the next session</summary>
+
+  <section class="lesson" style="border-top:0; margin-top:8px; padding-top:8px;">
+    <h2>Midas: ask what the target will cost before you chase it</h2>
+    <p class="story">He got exactly what he asked for. A single target hides everything that is not on the schedule.</p>
+    <h3>When to use this</h3>
+    <p>When you set yourself or your team a stretch target, and before you use AI to hit it faster. Time saved for you can become time spent by someone else: output that looks finished but is not.</p>
+    <div class="prompt-wrap">
+<pre class="prompt">I'm aiming for [target] by [date].
+
+1. What would I quietly sacrifice to hit this number?
+2. List five adjacent things (quality, safety, other people, downstream effects, future me) that could get worse while this improves.
+3. How would I notice early that each one is slipping?
+4. Which one becomes a hard guardrail? What is my Plan B if it slips?
+5. Ask me what I know about this that you don't.</pre>
+      <button class="copy" type="button">Copy</button>
+    </div>
+    <p class="fill">Write your own list on paper first (two minutes), then run the prompt. Line 5 draws your expertise out of you.</p>
+  </section>
+
+  <section class="lesson">
+    <h2>Babel: starting fresh is the default move at a breakpoint</h2>
+    <p class="story">Long conversations lose precision. An AI safety researcher told her agent "don't action until I tell you to"; the session compacted its memory, the instruction was lost, and hundreds of emails were deleted.</p>
+    <h3>When to use this</h3>
+    <p>At any natural breakpoint: a tangent, a finished chunk of work, or a conversation that has run long. Don't wait for the output to degrade. Restate your constraints, hand off, then start fresh.</p>
+    <div class="prompt-wrap">
+<pre class="prompt">Summarise this conversation as a short handoff I can paste into a new chat: key decisions, my constraints and rules, open questions, and what I'm doing next. Keep it under 200 words.</pre>
+      <button class="copy" type="button">Copy</button>
+    </div>
+    <p class="fill">Paste the summary into a new conversation and carry on from there. A safeguard that lives only in the chat can be lost; real permissions (read-only access, for example) are safer.</p>
+  </section>
+</details>
+
+<footer>
+  <p>Last updated: [date]. Owner: [name]. Links were checked on 23 October 2026.</p>
+</footer>
+
+</main>
+
+<script>
+(function () {
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+  function flash(btn, label) {
+    var original = btn.textContent;
+    btn.textContent = label;
+    btn.classList.add('done');
+    setTimeout(function () { btn.textContent = original; btn.classList.remove('done'); }, 1600);
+  }
+  var buttons = document.querySelectorAll('.copy');
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function (ev) {
+      var btn = ev.currentTarget;
+      var pre = btn.parentNode.querySelector('pre.prompt');
+      var text = pre.textContent;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function () { flash(btn, 'Copied'); },
+          function () { flash(btn, fallbackCopy(text) ? 'Copied' : 'Select and copy'); });
+      } else {
+        flash(btn, fallbackCopy(text) ? 'Copied' : 'Select and copy');
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

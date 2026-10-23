@@ -4,6 +4,7 @@
   // file and serves everything in ./public as static assets — no server code.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "nicolescheid-portfolio",
+  "account_id": "413cb81347f3e89932f12e3ed9a6d062", // Nicole's Cloudflare account
   "compatibility_date": "2025-09-23",
   "assets": {
     "directory": "./public"
