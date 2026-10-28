@@ -1,4 +1,9 @@
-# Homepage hands off to the AI CV, which is the canonical version of the site.
+# Homepage hands off to Nix Sim (the AI simulation, formerly the AI CV at /ai-cv), the canonical version of the site.
 # 302 (not 301) so a standalone homepage can come back later without fighting browser caches.
-/ /ai-cv 302
-/index.html /ai-cv 302
+/ /nix 302
+/index.html /nix 302
+
+# The AI CV moved from /ai-cv to /nix (29 Oct 2026). The nicole-ai-cv Worker no longer
+# routes /ai-cv, so those requests reach this site and are sent on, keeping any sub-path.
+/ai-cv /nix 301
+/ai-cv/* /nix/:splat 301
